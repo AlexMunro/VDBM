@@ -30,7 +30,7 @@ import javax.swing.table.TableModel;
 import model.Model;
 import model.diagram.Attribute;
 import model.diagram.Entity;
-import application.error.DependencyError;
+import application.exception.CircularInheritanceException;
 import application.gui.qbe.Query;
 
 
@@ -140,7 +140,7 @@ public class MySQL implements SystemStrategy
 	}
 	
 	@Override
-	public List<String> generateSchema(Model model) throws DependencyError
+	public List<String> generateSchema(Model model) throws CircularInheritanceException
 	{
 		// TODO Auto-generated method stub
 		List<String> schema = new ArrayList<String>();

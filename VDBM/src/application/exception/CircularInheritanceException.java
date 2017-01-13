@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with VDBM.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package application.error;
+package application.exception;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ import model.diagram.Entity;
  * @author Alex Munro
  *
  */
-public class CircularInheritanceError extends DependencyError
+public class CircularInheritanceException extends Exception
 {
 	private static final long serialVersionUID = -149551925406436809L;
 	private List<Entity> affectedEntities;
@@ -55,7 +55,7 @@ public class CircularInheritanceError extends DependencyError
 		return msg;
 	}
 	
-	public CircularInheritanceError(List<Entity> affectedEntities)
+	public CircularInheritanceException(List<Entity> affectedEntities)
 	{
 		this.affectedEntities = affectedEntities;
 	}

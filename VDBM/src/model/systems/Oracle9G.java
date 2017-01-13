@@ -30,7 +30,7 @@ import javax.swing.table.TableModel;
 import model.Model;
 import model.diagram.Attribute;
 import model.diagram.Entity;
-import application.error.DependencyError;
+import application.exception.CircularInheritanceException;
 import application.gui.qbe.Query;
 
 /**
@@ -51,7 +51,7 @@ public class Oracle9G implements SystemStrategy
 	
 	
 	@Override
-	public List<String> generateSchema(Model model) throws DependencyError
+	public List<String> generateSchema(Model model) throws CircularInheritanceException
 	{
 		generatedCode = new ArrayList<String>();
 		List<Entity> undumpedEntities = new ArrayList<Entity>(model.getEntities());

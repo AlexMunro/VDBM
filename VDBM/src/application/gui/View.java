@@ -29,8 +29,7 @@ import command.RepositionComponent;
 import application.Controller;
 import application.Relationship;
 import application.RunTool;
-import application.error.CircularInheritanceError;
-import application.error.DependencyError;
+import application.exception.CircularInheritanceException;
 import application.gui.dialog.AboutPage;
 import application.gui.dialog.NewModel;
 import application.gui.dialog.QueryByExampleDialog;
@@ -148,7 +147,8 @@ public class View extends JFrame
 	
 
 	/**
-	 * forgive me for i have sinned
+	 * Constructor for the view. Sets up the visual component
+	 * of the application.
 	 */
 	public View()
 	{
@@ -401,7 +401,11 @@ public class View extends JFrame
 		this.add(contentScroller, BorderLayout.CENTER);
 	}
 
-	protected void closeModel()
+	/**
+	 * Returns the view to its initial state, unloading
+	 * the current model.
+	 */
+	private void closeModel()
 	{
 		mntmSaveModel.setEnabled(false);
 		mntmGenerateSchema.setEnabled(false);
@@ -422,6 +426,10 @@ public class View extends JFrame
 		this.setTitle(RunTool.APPLICATION_NAME);
 	}
 
+	/**
+	 * Retrieves the @Model currently associated to this view.
+	 * @return The currently loaded @Model .
+	 */
 	public Model getModel()
 	{
 		return model;
@@ -573,7 +581,10 @@ public class View extends JFrame
 		return true; // Successfully cancelled
 	}
 
-	protected void exportToImage()
+	/**
+	 * Saves the image currently displayed on the view to file.
+	 */
+	private void exportToImage()
 	{
 		JFileChooser imageChooser = new JFileChooser();
 		imageChooser.setDialogTitle("Save to image");
@@ -639,12 +650,10 @@ public class View extends JFrame
 				System.err.println(e.getMessage());
 				e.printStackTrace();
 			} 
-			catch(DependencyError de)
+			catch(CircularInheritanceException cie)
 			{
-				if (de instanceof CircularInheritanceError)
-					JOptionPane.showMessageDialog(this, "Schema could not be generated due to circular inheritance dependencies.");
-				System.err.println("Dependency error found when generating schema");
-				System.err.println(de.getMessage());
+				JOptionPane.showMessageDialog(this, "Schema could not be generated due to circular inheritance dependencies.");
+				System.err.println(cie.getMessage());
 			}
 		}
 	}

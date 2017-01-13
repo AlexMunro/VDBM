@@ -27,8 +27,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import application.error.CircularInheritanceError;
-import application.error.DependencyError;
+import application.exception.CircularInheritanceException;
 import application.gui.qbe.Query;
 import model.Model;
 import model.diagram.Attribute;
@@ -162,7 +161,7 @@ public class XFDM implements SystemStrategy {
 	}
 
 	@Override
-	public List<String> generateSchema(Model model) throws DependencyError
+	public List<String> generateSchema(Model model) throws CircularInheritanceException
 	{
 
 		declaredConstraints = 0;
@@ -205,7 +204,7 @@ public class XFDM implements SystemStrategy {
 			// be aborted.
 			if (newEntitiesDumped == 0)
 			{
-				throw new CircularInheritanceError(undumpedEntities);
+				throw new CircularInheritanceException(undumpedEntities);
 			}
 		}
 		

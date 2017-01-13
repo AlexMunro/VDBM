@@ -31,20 +31,31 @@ import model.systems.SystemEnum;
 /**
  * Represents the conceptual model of a diagram. This is the object that is
  * saved and so contains everything necessary to reproduce a diagram.
- * 
- * All member objects must implement Serializable!
+ * <p>
+ * When making changes to the members of this class, remember to update
+ * @ModelXMLFileHandler to ensure that file handling still works.
  * 
  * @author Alex Munro
  *
  */
 
-public class Model implements Serializable{
+public class Model {
 
-	private static final long serialVersionUID = -3814350453862386550L;
 	private SystemEnum ts;
 	private String name;
 	private List<Entity> entities;
 	
+	/**
+	 * Constructor for creating a new model
+	 * @param ts The target system of the new model
+	 * @param name The name of the new model
+	 */
+	public Model(SystemEnum ts, String name)
+	{
+		this.ts = ts;
+		this.name = name;
+		this.entities = new ArrayList<Entity>();
+	}
 	
 	public SystemEnum getTs() {
 		return ts;
@@ -54,7 +65,7 @@ public class Model implements Serializable{
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Gets a list of all the entities in the model
 	 * @return A shallow clone of the entity list
@@ -62,15 +73,48 @@ public class Model implements Serializable{
 	public List<Entity> getEntities(){
 		return new ArrayList<Entity>(entities);
 	}
-	
 
-	public Model(SystemEnum ts, String name)
+
+	/**
+	 * Combines standard return types with user-defined types
+	 * @return List of valid return types
+	 */
+	public List<String> getReturnTypes()
 	{
-		this.ts = ts;
-		this.name = name;
-		this.entities = new ArrayList<Entity>();
+		List<String> returnTypes = new ArrayList<String>(ts.getSystem().returnTypes());
+		returnTypes.addAll(getEntityNames());
+		return returnTypes;
 	}
-	
+
+	/**
+	 * Does a linear search on nodes in the graph to find one with a certain name.
+	 * @param name The name of the entity to be found.
+	 * @return The entity object with the correct name or null if search is unsuccessful.
+	 */
+	public Entity getEntity(String name)
+	{
+		for (Entity e : entities)
+		{
+			if (e.getName().equals(name))
+				return e;
+		}
+		return null;
+	}
+
+	/**
+	 * Gets a list of entity set names
+	 * @return An ArrayList containing the name of every entity set in the model
+	 */
+	public ArrayList<String> getEntityNames()
+	{
+		ArrayList<String> entityNames = new ArrayList<String>();
+		for (Entity e : entities)
+		{
+			entityNames.add(e.getName());
+		}
+		return entityNames;
+	}
+
 	/**
 	 * Removes an entity from the model and removes any
 	 * relationships that depend on it
@@ -98,57 +142,25 @@ public class Model implements Serializable{
 	}
 	
 	/**
-	 * Combines standard return types with user-defined types
-	 * @return List of valid return types
+	 * Adds a blank entity to the table
+	 * @param p The upper-left most point of the new table
+	 * @return The newly created entity
 	 */
-	public List<String> getReturnTypes()
-	{
-		List<String> returnTypes = new ArrayList<String>(ts.getSystem().returnTypes());
-		returnTypes.addAll(getEntityNames());
-		return returnTypes;
-	}
-	
-	/**
-	 * Does a linear search on nodes in the graph to find one with a certain name.
-	 * @param name The name of the entity to be found.
-	 * @return The entity object with the correct name or null if search is unsuccessful.
-	 */
-	public Entity getEntity(String name)
-	{
-		for (Entity e : entities)
-		{
-			if (e.getName().equals(name))
-				return e;
-		}
-		return null;
-	}
-	
 	public Entity newEntity(Point p)
 	{
 		Entity newEntity = new Entity(this, "Table" + (entities.size() + 1), p);
 		return newEntity;
 	}
 
-
+	/**
+	 * Add an entity to the list of entities
+	 * @param e The entity to be added
+	 */
 	public void addEntity(Entity e)
 	{
 		this.entities.add(e);
 	}
 
-
-	/**
-	 * Gets a list of entity set names
-	 * @return An ArrayList containing the name of every entity set in the model
-	 */
-	public ArrayList<String> getEntityNames()
-	{
-		ArrayList<String> entityNames = new ArrayList<String>();
-		for (Entity e : entities)
-		{
-			entityNames.add(e.getName());
-		}
-		return entityNames;
-	}
 
 	/**
 	 * Used to keep foreign table references up to date
@@ -166,7 +178,6 @@ public class Model implements Serializable{
 			}
 		}
 	}
-
 
 
 }

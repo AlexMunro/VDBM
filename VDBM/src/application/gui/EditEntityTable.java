@@ -92,7 +92,6 @@ public class EditEntityTable extends JTable
 		Object o = super.getValueAt(row, column);
 		if (o instanceof JComboBox)
 		{
-			System.out.println("ESTA");
 			return new DefaultCellEditor((JComboBox) o);
 		}
 		return super.getCellEditor(row, column);

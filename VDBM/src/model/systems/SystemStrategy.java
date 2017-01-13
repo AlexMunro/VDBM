@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.swing.table.TableModel;
 
-import application.error.DependencyError;
+import application.exception.CircularInheritanceException;
 import application.gui.qbe.Query;
 import model.Model;
 import model.diagram.Entity;
@@ -44,7 +44,7 @@ public interface SystemStrategy {
 	 * @param file The file location to dump the new schema
 	 * @return The generated schema as a text file
 	 */
-	public List<String> generateSchema(Model model) throws DependencyError;
+	public List<String> generateSchema(Model model) throws CircularInheritanceException;
 	
 	/**
 	 * To implement this method, create your type and create an ArrayList<String>

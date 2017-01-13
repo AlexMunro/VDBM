@@ -44,6 +44,10 @@ import model.diagram.Entity;
  * The window that pops up after the QueryByExample dialog.
  * Contains the QBE tables and is responsible for passing
  * a query object to the system strategy.
+ * <p>
+ * This feature has so far only been implemented as a 
+ * "proof of concept" - much more work should be done
+ * to make this feature properly usable.
  * 
  * @author Alex Munro
  *

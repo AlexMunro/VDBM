@@ -1,0 +1,11 @@
+# Java stuff
+VDBM/bin
+
+# IDEA stuff
+*.iml
+
+# Eclipse stuff
+.classpath
+.project
+VDBM/.settings
+.idea/
