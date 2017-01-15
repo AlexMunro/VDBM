@@ -109,8 +109,8 @@ public class Controller implements TableModelListener
 		this.model = model;
 		this.view = view;
 		commandManager = new CommandManager();
-		this.associations = new ArrayList<Relationship>();
-		this.inheritances = new ArrayList<Relationship>();
+		this.associations = new ArrayList<>();
+		this.inheritances = new ArrayList<>();
 	}
 
 	
@@ -122,8 +122,8 @@ public class Controller implements TableModelListener
 	 */
 	public void updateRelationships()
 	{
-		inheritances = new ArrayList<Relationship>();
-		associations = new ArrayList<Relationship>();
+		inheritances = new ArrayList<>();
+		associations = new ArrayList<>();
 		for (Entity e : model.getEntities())
 		{
 			if (e.isSubclass())
@@ -143,8 +143,8 @@ public class Controller implements TableModelListener
 
 	private class CommandManager {
 
-		Stack<Command> undoStack = new Stack<Command>();
-		Stack<Command> redoStack = new Stack<Command>();
+		Stack<Command> undoStack = new Stack<>();
+		Stack<Command> redoStack = new Stack<>();
 		
 		public void addCommand(Command c)
 		{
@@ -152,7 +152,7 @@ public class Controller implements TableModelListener
 			undoStack.add(c);
 			// The timeline has been altered
 			// Undone commands no longer hold
-			redoStack = new Stack<Command>();
+			redoStack = new Stack<>();
 			updateRelationships();
 		}
 		

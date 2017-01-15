@@ -111,7 +111,7 @@ public class QBETable extends JTable
 	public QBETable(Entity e)
 	{
 		this.entity = e;
-		this.conditions = new ArrayList<String[]>();
+		this.conditions = new ArrayList<>();
 		printConditions = new boolean[e.getAllAttributes().size()];
 		for (int i = 0; i < printConditions.length; i++)
 		{
@@ -134,7 +134,7 @@ public class QBETable extends JTable
 	{
 		
 		private static final long serialVersionUID = -8044681048126794695L;
-		List<TableModelListener> listeners = new ArrayList<TableModelListener>();
+		List<TableModelListener> listeners = new ArrayList<>();
 		
 		@Override
 		public void addTableModelListener(TableModelListener tableModelListener)

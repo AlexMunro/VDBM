@@ -65,7 +65,7 @@ public class QBEBox extends JInternalFrame
 	
 	public List<Attribute> getPrintedAttributes()
 	{
-		List<Attribute> printList = new ArrayList<Attribute>();
+		List<Attribute> printList = new ArrayList<>();
 		for (int i = 0; i < table.getEntity().getAllAttributes().size(); i++)
 		{
 			if (table.getPrintConditions()[i])
@@ -76,10 +76,10 @@ public class QBEBox extends JInternalFrame
 
 	public HashMap<Attribute, List<String>> getMap()
 	{
-		HashMap<Attribute, List<String>> map = new HashMap<Attribute, List<String>>();
+		HashMap<Attribute, List<String>> map = new HashMap<>();
 		for (int col = 0; col < table.getColumnCount(); col++)
 		{
-			List<String> queries = new ArrayList<String>();
+			List<String> queries = new ArrayList<>();
 			for (int row = 1; row < table.getRowCount(); row++)
 			{
 				if ((table.getValueAt(row, col) != null) && (table.getValueAt(row, col).toString().length() != 0))

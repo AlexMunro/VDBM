@@ -101,8 +101,8 @@ public class NewAttributeDialog extends JDialog
 		panel2.add(lblType);
 	
 		List<String> returnTypes = this.getView().getModel().getReturnTypes();
-		ComboBoxModel<String> typeModel = new DefaultComboBoxModel<String>(returnTypes.toArray(new String[returnTypes.size()])); 
-		typeComboBox = new JComboBox<String>(typeModel); 
+		ComboBoxModel<String> typeModel = new DefaultComboBoxModel<>(returnTypes.toArray(new String[returnTypes.size()]));
+		typeComboBox = new JComboBox<>(typeModel);
 		panel2.add(typeComboBox);
 	
 		
@@ -138,37 +138,22 @@ public class NewAttributeDialog extends JDialog
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{	
-				Attribute a = new Attribute(nameField.getText(),
-											typeComboBox.getItemAt(typeComboBox.getSelectedIndex()),
-											uniqueCheckBox.isSelected(),
-											notNullCheckBox.isSelected(),
-											fixedCheckBox.isSelected(),
-											multiCheckBox.isSelected());
-				
-				NewAttributeDialog.this.getView().getController().acceptCommand(new AddAttribute((EntityBox)NewAttributeDialog.this.eed.getParent(), a));
-				NewAttributeDialog.this.close();
-			}
-		
-		});
+		okButton.addActionListener(e -> {
+            Attribute a = new Attribute(nameField.getText(),
+                                        typeComboBox.getItemAt(typeComboBox.getSelectedIndex()),
+                                        uniqueCheckBox.isSelected(),
+                                        notNullCheckBox.isSelected(),
+                                        fixedCheckBox.isSelected(),
+                                        multiCheckBox.isSelected());
+
+            NewAttributeDialog.this.getView().getController().acceptCommand(new AddAttribute((EntityBox)NewAttributeDialog.this.eed.getParent(), a));
+            NewAttributeDialog.this.close();
+        });
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 	
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				close();
-			}
-			
-		});
+		cancelButton.addActionListener(e -> close());
 		buttonPane.add(cancelButton);
 		
 		this.setVisible(true);

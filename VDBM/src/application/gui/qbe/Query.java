@@ -63,10 +63,10 @@ public class Query
 	
 	public HashMap<Attribute, List<String>> getConditions()
 	{
-		HashMap<Attribute, List<String>> conditions = new HashMap<Attribute, List<String>>();
+		HashMap<Attribute, List<String>> conditions = new HashMap<>();
 		for (Attribute a : attributeQueries.keySet())
 		{
-			List<String> c = new ArrayList<String>();
+			List<String> c = new ArrayList<>();
 			for (String s : attributeQueries.get(a))
 			{
 				if ((s != null) && (!s.equals("")) && (! s.equals("print")))

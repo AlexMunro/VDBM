@@ -53,9 +53,9 @@ public class Oracle9G implements SystemStrategy
 	@Override
 	public List<String> generateSchema(Model model) throws CircularInheritanceException
 	{
-		generatedCode = new ArrayList<String>();
-		List<Entity> undumpedEntities = new ArrayList<Entity>(model.getEntities());
-		validReturnTypes = new ArrayList<String>(returnTypes());
+		generatedCode = new ArrayList<>();
+		List<Entity> undumpedEntities = new ArrayList<>(model.getEntities());
+		validReturnTypes = new ArrayList<>(returnTypes());
 		while (!undumpedEntities.isEmpty())
 		{
 			for (Entity e : undumpedEntities)
@@ -82,7 +82,7 @@ public class Oracle9G implements SystemStrategy
 		else
 			generatedCode.add("CREATE TYPE " + e.getName() + " AS OBJECT");
 		generatedCode.add("(");
-		List<Attribute> declaredAttributes = new ArrayList<Attribute>();
+		List<Attribute> declaredAttributes = new ArrayList<>();
 		for (Attribute a : e.getAttributes())
 		{
 			if (validReturnTypes.contains(a.getType()))
@@ -129,7 +129,7 @@ public class Oracle9G implements SystemStrategy
 		if (returnTypes != null)
 			return returnTypes;
 		String[] types = {"CHAR", "VARCHAR2", "NUMBER", "DATE"};
-		returnTypes = new ArrayList<String>(Arrays.asList(types));
+		returnTypes = new ArrayList<>(Arrays.asList(types));
 		return returnTypes;
 	}
 	
@@ -164,7 +164,7 @@ public class Oracle9G implements SystemStrategy
 		{
 			//TODO: investigate these
 			String result = "";
-			List<String> constraints = new ArrayList<String>();
+			List<String> constraints = new ArrayList<>();
 			if (a.isUnique())
 				constraints.add("unique");
 			if (a.isNotNull())

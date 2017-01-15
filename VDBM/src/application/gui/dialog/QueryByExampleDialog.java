@@ -83,7 +83,7 @@ public class QueryByExampleDialog extends JDialog
 			JPanel panel = new JPanel();
 			contentPanel.add(panel);
 		}
-		entitiesComboBox = new JComboBox<Entity>(entities);
+		entitiesComboBox = new JComboBox<>(entities);
 		contentPanel.add(entitiesComboBox);
 		{
 			JPanel buttonPane = new JPanel();
@@ -92,30 +92,20 @@ public class QueryByExampleDialog extends JDialog
 			{
 				JButton beginQBE = new JButton("Begin");
 				beginQBE.setActionCommand("OK");
-				beginQBE.addActionListener(new ActionListener()
-				{
-
-					@Override
-					public void actionPerformed(ActionEvent arg0)
-					{
-						new QBEWindow(QueryByExampleDialog.this.model, entitiesComboBox.getItemAt(entitiesComboBox.getSelectedIndex()));
-						setVisible(false);
-						dispose();
-					}
-					
-				}
-				);
+				beginQBE.addActionListener(arg0 -> {
+                    new QBEWindow(QueryByExampleDialog.this.model, entitiesComboBox.getItemAt(entitiesComboBox.getSelectedIndex()));
+                    setVisible(false);
+                    dispose();
+                });
 				buttonPane.add(beginQBE);
 				getRootPane().setDefaultButton(beginQBE);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setVisible(false);
-						dispose();
-					}
-				});
+				cancelButton.addActionListener(arg0 -> {
+                    setVisible(false);
+                    dispose();
+                });
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
