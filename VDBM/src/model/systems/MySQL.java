@@ -77,7 +77,7 @@ public class MySQL implements SystemStrategy
 	{
 		schema.add("CREATE TABLE " + e.getName() + "(");
 		schema.add("\t" + getID(e.getName()) + " INT NOT NULL AUTO_INCREMENT,");
-		List<String> foreignKeys = new ArrayList<String>();
+		List<String> foreignKeys = new ArrayList<>();
 		for (Attribute a : e.getAllAttributes())
 		{	
 			String attributeString = "";
@@ -93,7 +93,7 @@ public class MySQL implements SystemStrategy
 				}
 				else
 				{
-					ArrayList<Attribute> al = new ArrayList<Attribute>();
+					ArrayList<Attribute> al = new ArrayList<>();
 					al.add(a);
 					junctionTables.put(e, al);
 				}
@@ -143,12 +143,12 @@ public class MySQL implements SystemStrategy
 	public List<String> generateSchema(Model model) throws CircularInheritanceException
 	{
 		// TODO Auto-generated method stub
-		List<String> schema = new ArrayList<String>();
-		junctionTables = new HashMap<Entity, List<Attribute>>();
+		List<String> schema = new ArrayList<>();
+		junctionTables = new HashMap<>();
 		schema.add("CREATE DATABASE " + model.getName() +";");
 		schema.add("USE " + model.getName() +";");
 		schema.add("");
-		List<String> dumpedEntityNames = new ArrayList<String>();
+		List<String> dumpedEntityNames = new ArrayList<>();
 		while (dumpedEntityNames.size() < model.getEntities().size())
 		{
 			for (Entity e : model.getEntities())
@@ -183,7 +183,7 @@ public class MySQL implements SystemStrategy
 	{
 		if (returnTypes != null)
 			return returnTypes;
-		returnTypes = new ArrayList<String>();
+		returnTypes = new ArrayList<>();
 		String[] types = {"INT", "VARCHAR(20)", "REAL", "BOOLEAN", "DATE"};
 		returnTypes.addAll(Arrays.asList(types));
 		return returnTypes;
@@ -235,7 +235,7 @@ public class MySQL implements SystemStrategy
 		public String constraintString(Attribute a)
 		{
 			String result = "";
-			List<String> constraints = new ArrayList<String>();
+			List<String> constraints = new ArrayList<>();
 			if (a.isUnique())
 				constraints.add("unique");
 			if (a.isNotNull())
@@ -262,7 +262,7 @@ public class MySQL implements SystemStrategy
 	@Override
 	public List<String> generateQuery(Query q)
 	{
-		List<String> query = new ArrayList<String>();
+		List<String> query = new ArrayList<>();
 		if (q.printedAttributes().size() == 0)
 			query.add("SELECT * FROM " + q.getEntity().getName());
 		else
@@ -280,7 +280,7 @@ public class MySQL implements SystemStrategy
 		if (q.getConditions().keySet().size() > 0)
 		{
 			String line = "WHERE ";
-			ArrayList<String> conds = new ArrayList<String>();
+			ArrayList<String> conds = new ArrayList<>();
 			for (Attribute a : q.getConditions().keySet())
 			{
 				for(String c : q.getConditions().get(a))

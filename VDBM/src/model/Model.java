@@ -23,6 +23,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import model.diagram.Attribute;
 import model.diagram.Entity;
@@ -54,7 +55,7 @@ public class Model {
 	{
 		this.ts = ts;
 		this.name = name;
-		this.entities = new ArrayList<Entity>();
+		this.entities = new ArrayList<>();
 	}
 	
 	public SystemEnum getTs() {
@@ -71,7 +72,7 @@ public class Model {
 	 * @return A shallow clone of the entity list
 	 */
 	public List<Entity> getEntities(){
-		return new ArrayList<Entity>(entities);
+		return new ArrayList<>(entities);
 	}
 
 
@@ -81,7 +82,7 @@ public class Model {
 	 */
 	public List<String> getReturnTypes()
 	{
-		List<String> returnTypes = new ArrayList<String>(ts.getSystem().returnTypes());
+		List<String> returnTypes = new ArrayList<>(ts.getSystem().returnTypes());
 		returnTypes.addAll(getEntityNames());
 		return returnTypes;
 	}
@@ -107,7 +108,7 @@ public class Model {
 	 */
 	public ArrayList<String> getEntityNames()
 	{
-		ArrayList<String> entityNames = new ArrayList<String>();
+		ArrayList<String> entityNames = new ArrayList<>();
 		for (Entity e : entities)
 		{
 			entityNames.add(e.getName());
@@ -128,10 +129,10 @@ public class Model {
 		{
 			if (entity.inheritsFrom() == oldEntity)
 				entity.setInheritsFrom(null);
-			List<Attribute> oldAttributes = new ArrayList<Attribute>();
+			List<Attribute> oldAttributes = new ArrayList<>();
 			for (Attribute a : entity.getAttributes())
 			{
-				if (a.getType() == oldEntity.getName())
+				if (Objects.equals(a.getType(), oldEntity.getName()))
 					oldAttributes.add(a);
 			}
 			for (Attribute a : oldAttributes)

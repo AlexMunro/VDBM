@@ -55,13 +55,6 @@ public class EntityBox extends GUIComponent{
 	private Entity entity;
 	
 	/**
-	 * Creates a new box
-	 * @param entity - The entity object from the model being represented
-	 * @param initX - the initial x position of the component
-	 * @param initY - the initial y position of the component
-	 */
-	
-	/**
 	 * Populates the tree with attributes and constraints
 	 */
 	
@@ -110,7 +103,7 @@ public class EntityBox extends GUIComponent{
 			EntityBox.this.getMouseAdapter().mouseClicked(e);
 		}
 	}
-	
+
 	public EntityBox(Entity entity, View w, Point p)
 	{
 		super(w, p);

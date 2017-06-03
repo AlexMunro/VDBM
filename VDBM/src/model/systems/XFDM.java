@@ -102,8 +102,8 @@ public class XFDM implements SystemStrategy {
 	
 	private List<String> declareAttributes(Entity e)
 	{
-		List<String> attributeDeclarations = new ArrayList<String>();
-		List<String> constraints = new ArrayList<String>();
+		List<String> attributeDeclarations = new ArrayList<>();
+		List<String> constraints = new ArrayList<>();
 		for (Attribute a : e.getAttributes())
 		{
 			String attributeDeclaration = declareAttribute(a);
@@ -121,7 +121,7 @@ public class XFDM implements SystemStrategy {
 	
 	private List<String> declareConstraints(Attribute a)
 	{
-		List<String> constraintDeclarations = new ArrayList<String>();
+		List<String> constraintDeclarations = new ArrayList<>();
 		if (a.isUnique())
 		{
 			constraintDeclarations.add("constraint cu" + declaredConstraints + " on " + attributeStrings.get(a) + " -> unique;");
@@ -146,7 +146,7 @@ public class XFDM implements SystemStrategy {
 	 */
 	private List<String> generateEntityCode(Entity e, List<Entity> dumpedEntities)
 	{
-		List<String> entityCode = new ArrayList<String>();
+		List<String> entityCode = new ArrayList<>();
 		
 		entityCode.add(declareEntity(e));
 		
@@ -165,11 +165,11 @@ public class XFDM implements SystemStrategy {
 	{
 
 		declaredConstraints = 0;
-		undeclaredAttributes = new ArrayList<Attribute>();
-		dumpedEntities = new ArrayList<Entity>();
-		List<Entity> undumpedEntities = new ArrayList<Entity>();
+		undeclaredAttributes = new ArrayList<>();
+		dumpedEntities = new ArrayList<>();
+		List<Entity> undumpedEntities = new ArrayList<>();
 		declaredConstraints = 0;
-		attributeStrings = new HashMap<Attribute, String>();
+		attributeStrings = new HashMap<>();
 		undumpedEntities.addAll(model.getEntities());
 		
 		for(Entity e : model.getEntities())
@@ -180,14 +180,14 @@ public class XFDM implements SystemStrategy {
 			}
 		}
 		
-		List<String> generatedCode = new ArrayList<String>();
+		List<String> generatedCode = new ArrayList<>();
 	
 		// Iterate until all entities are dumped or circular inheritance dependency
 		// is apparent
 		while(undumpedEntities.size() != 0)
 		{
 			int newEntitiesDumped = 0;
-			List<Entity> justDumped = new ArrayList<Entity>();
+			List<Entity> justDumped = new ArrayList<>();
 			for (Entity e: undumpedEntities)
 			{
 				if (checkInheritanceDependency(e))
@@ -222,7 +222,7 @@ public class XFDM implements SystemStrategy {
 	{
 		if (returnTypes != null)
 			return returnTypes;
-		returnTypes = new ArrayList<String>();
+		returnTypes = new ArrayList<>();
 		String[] types = {"Integer", "String", "Real", "Boolean", "Entity", "Char"};
 		returnTypes.addAll(Arrays.asList(types));
 		return returnTypes;
@@ -259,7 +259,7 @@ public class XFDM implements SystemStrategy {
 		public String constraintString(Attribute a)
 		{
 			String result = "";
-			List<String> constraints = new ArrayList<String>();
+			List<String> constraints = new ArrayList<>();
 			if (a.isUnique())
 				constraints.add("unique");
 			if (a.isNotNull())
@@ -310,9 +310,9 @@ public class XFDM implements SystemStrategy {
 	@Override
 	public List<String> generateQuery(Query q)
 	{
-		List<String> query = new ArrayList<String>();
+		List<String> query = new ArrayList<>();
 		String line = "for each e in " + q.getEntity().getName() + " such that ";
-		ArrayList<String> conds = new ArrayList<String>();
+		ArrayList<String> conds = new ArrayList<>();
 		for (Attribute a : q.getConditions().keySet())
 		{
 			for(String c : q.getConditions().get(a))

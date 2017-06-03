@@ -111,13 +111,7 @@ public class EditEntityDialog extends JDialog {
 		entityName = new JTextField(parent.getEntity().getName(), 15);
 		entityName.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		ActionListener renameListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				renameEntity();
-			}
-		};
+		ActionListener renameListener = e -> renameEntity();
 		
 		entityName.addActionListener(renameListener);
 		JButton renameBtn = new JButton("Rename");
@@ -128,11 +122,11 @@ public class EditEntityDialog extends JDialog {
 		northLeftPane.add(entityName);
 		northLeftPane.add(renameBtn);
 		
-		inheritanceBox = new JComboBox<Entity>();
+		inheritanceBox = new JComboBox<>();
 	
 		List<Entity> inheritableEntities = this.getView().getModel().getEntities();
 		inheritableEntities.remove(parent.getEntity());
-		inheritanceBox.setModel(new DefaultComboBoxModel<Entity>(inheritableEntities.toArray(new Entity[inheritableEntities.size()])));
+		inheritanceBox.setModel(new DefaultComboBoxModel<>(inheritableEntities.toArray(new Entity[inheritableEntities.size()])));
 		
 		inheritanceBox.insertItemAt(null, 0);
 		
@@ -144,17 +138,8 @@ public class EditEntityDialog extends JDialog {
 			inheritanceBox.setSelectedItem(null);
 		
 		
-		inheritanceBox.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				EditEntityDialog.this.getView().getController().acceptCommand(new EditInheritance(EditEntityDialog.this.parent, inheritanceBox.getItemAt(inheritanceBox.getSelectedIndex())));
-			}
-			
-		}
-				);
+		inheritanceBox.addActionListener(e -> EditEntityDialog.this.getView().getController().acceptCommand(new EditInheritance(EditEntityDialog.this.parent, inheritanceBox.getItemAt(inheritanceBox.getSelectedIndex())))
+		);
 		JPanel northPane = new JPanel();
 		northPane.setLayout(new GridLayout(0, 2, 0, 0));
 		
@@ -173,7 +158,7 @@ public class EditEntityDialog extends JDialog {
 		northRightPane.add(inheritanceBox);
 
 		table = new EditEntityTable(new EditEntityTableModel(this, parent));
-		//AFDS
+
 		JPanel buttonPanes = new JPanel();
 		getContentPane().add(buttonPanes, BorderLayout.SOUTH);
 		buttonPanes.setLayout(new GridLayout(0, 2, 0, 0));
@@ -184,11 +169,7 @@ public class EditEntityDialog extends JDialog {
 		buttonPanes.add(buttonPaneLeft);
 		
 		JButton newAttributeBtn = new JButton("Add new attribute");
-		newAttributeBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new NewAttributeDialog(EditEntityDialog.this);
-			}
-		});
+		newAttributeBtn.addActionListener(e -> new NewAttributeDialog(EditEntityDialog.this));
 		buttonPaneLeft.add(newAttributeBtn);
 		
 		JPanel buttonPaneRight = new JPanel();
@@ -200,18 +181,12 @@ public class EditEntityDialog extends JDialog {
 		buttonPaneRight.add(okButton);
 		okButton.setActionCommand("OK");
 		getRootPane().setDefaultButton(okButton);
-		okButton.addActionListener(new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent arg0)
-				{
-					EditEntityDialog.this.parent.repaint();
-					getView().repaint();
-					setVisible(false);
-					dispatchEvent(new WindowEvent(EditEntityDialog.this, WindowEvent.WINDOW_CLOSING));
-				}
-			}
-		);
+		okButton.addActionListener(arg0 -> {
+            EditEntityDialog.this.parent.repaint();
+            getView().repaint();
+            setVisible(false);
+            dispatchEvent(new WindowEvent(EditEntityDialog.this, WindowEvent.WINDOW_CLOSING));
+        });
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPanel.add(scrollPane);
 		table.setFillsViewportHeight(true);

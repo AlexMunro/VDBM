@@ -42,7 +42,7 @@ public class Entity extends Component implements Serializable{
 	
 	private static final long serialVersionUID = 7524813382347793342L;
 	private String name;
-	private ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+	private ArrayList<Attribute> attributes = new ArrayList<>();
 	private Entity inheritedEntity;
 	
 	private Model model; // reference back to overall model
@@ -113,9 +113,9 @@ public class Entity extends Component implements Serializable{
 			return this.getAttributes();
 		else
 		{
-			Set<Attribute> fullAttributeSet = new LinkedHashSet<Attribute>(this.getAttributes());
+			Set<Attribute> fullAttributeSet = new LinkedHashSet<>(this.getAttributes());
 			fullAttributeSet.addAll(this.inheritsFrom().getAllAttributes()); // Woo! Recursion!
-			return new ArrayList<Attribute>(fullAttributeSet);
+			return new ArrayList<>(fullAttributeSet);
 		}
 	}
 	

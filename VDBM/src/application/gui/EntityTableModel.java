@@ -39,7 +39,7 @@ public class EntityTableModel implements TableModel
 	
 	protected EntityBox entityBox;
 	
-	private ArrayList<TableModelListener> listeners = new ArrayList<TableModelListener>();
+	private ArrayList<TableModelListener> listeners = new ArrayList<>();
 
 	
 	public EntityTableModel(EntityBox eb)

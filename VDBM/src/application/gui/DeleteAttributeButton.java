@@ -54,18 +54,11 @@ public class DeleteAttributeButton extends JButton implements TableCellRenderer,
 		this.entityBox = eb;
 		this.a = a;
 		this.eed = eed;
-		this.addActionListener(new ActionListener()
-		{	
-			
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				deleteAttribute();
-				DeleteAttributeButton.this.setEnabled(false);
-				DeleteAttributeButton.this.setVisible(false);
-			}
-		
-		});
+		this.addActionListener(e -> {
+            deleteAttribute();
+            DeleteAttributeButton.this.setEnabled(false);
+            DeleteAttributeButton.this.setVisible(false);
+        });
 		this.setText("Delete");
 	}
 	

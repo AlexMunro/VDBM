@@ -79,8 +79,8 @@ public class ChangeReferenceDialog extends JDialog
 		}
 		{
 			List<EntityBox> entities = getView().getEntities();
-			DefaultComboBoxModel<EntityBox> tblModel = new DefaultComboBoxModel<EntityBox>(entities.toArray(new EntityBox[entities.size()]));
-			refTblCombo = new JComboBox<EntityBox>(tblModel);
+			DefaultComboBoxModel<EntityBox> tblModel = new DefaultComboBoxModel<>(entities.toArray(new EntityBox[entities.size()]));
+			refTblCombo = new JComboBox<>(tblModel);
 			contentPanel.revalidate();
 			pack();
 		}
@@ -89,20 +89,13 @@ public class ChangeReferenceDialog extends JDialog
 			contentPanel.add(lblReferenceColumn);
 		}
 		{
-			refTblCombo.addActionListener(new ActionListener()
-			{
+			refTblCombo.addActionListener(e -> {
+                List<Attribute> attributes = refTblCombo.getItemAt(refTblCombo.getSelectedIndex()).getEntity().getAttributes();
+                refColCombo.setModel(new DefaultComboBoxModel<>(attributes.toArray(new Attribute[attributes.size()])));
+            }
 
-				@Override
-				public void actionPerformed(ActionEvent e)
-				{
-					List<Attribute> attributes = refTblCombo.getItemAt(refTblCombo.getSelectedIndex()).getEntity().getAttributes();
-					refColCombo.setModel(new DefaultComboBoxModel<Attribute>(attributes.toArray(new Attribute[attributes.size()])));
-				}
-				
-			}
-					
-					);
-			refColCombo = new JComboBox<Attribute>();
+			);
+			refColCombo = new JComboBox<>();
 			refColCombo.setEnabled(false);
 			contentPanel.add(refColCombo);
 		}
@@ -112,30 +105,16 @@ public class ChangeReferenceDialog extends JDialog
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener()
-				{
-
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						ChangeReferenceDialog.this.eed.refreshTable();
-					}
-					
-				}
-				);
+				okButton.addActionListener(e -> ChangeReferenceDialog.this.eed.refreshTable());
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent arg0)
-					{
-						setVisible(false);
-						dispose();
-					}
-				});
+				cancelButton.addActionListener(arg0 -> {
+                    setVisible(false);
+                    dispose();
+                });
 				buttonPane.add(cancelButton);
 			}
 		}

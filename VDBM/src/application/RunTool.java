@@ -32,26 +32,23 @@ import javax.swing.UIManager;
 public class RunTool {
 
 	public static final String APPLICATION_NAME = "VDBM: The Visual Database Modeller";
-	public static final String APPLICATION_VERSION = "1.2.1";
-	public static final String MOST_RECENT_UPDATE = "14.05.2014";
+	public static final String APPLICATION_VERSION = "1.2.2";
+	public static final String MOST_RECENT_UPDATE = "15.01.2017";
 	public static final String EMAIL = "vdbmproject@gmail.com";
 	
 	public static void main(String[] args)
 	{
-		SwingUtilities.invokeLater(new Runnable(){
-			// Scheduling the window on the event-dispatching thread for thread safety
-			public void run()
-			{
-				try
-				{
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (Exception e)
-				{
-					System.err.println("Could not set look and feel");
-				}
-				new application.gui.View();
-			}
-		});
+		// Scheduling the window on the event-dispatching thread for thread safety
+		SwingUtilities.invokeLater(() -> {
+            try
+            {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e)
+            {
+                System.err.println("Could not set look and feel");
+            }
+            new application.gui.View();
+        });
 	}
 	
 }

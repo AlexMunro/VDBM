@@ -83,8 +83,8 @@ public class NewModel extends JDialog
 		contentPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		JLabel lblNewLabel = new JLabel("Target system");
 		contentPanel.add(lblNewLabel);
-		comboBox = new JComboBox<SystemEnum>();
-		comboBox.setModel(new DefaultComboBoxModel<SystemEnum>(SystemEnum.values()));
+		comboBox = new JComboBox<>();
+		comboBox.setModel(new DefaultComboBoxModel<>(SystemEnum.values()));
 		comboBox.setSelectedIndex(SystemEnum.XFDM.ordinal());
 		contentPanel.add(comboBox);
 		JLabel lblNewLabel_1 = new JLabel("Model name");
@@ -96,39 +96,31 @@ public class NewModel extends JDialog
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				if (!textField.getText().equals(null))
-				{
-					NewModel.this.window.newModel(
-							(SystemEnum) comboBox.getSelectedItem(),
-							textField.getText());
-					NewModel.this.setVisible(false);
-					NewModel.this.dispatchEvent(new WindowEvent(
-							NewModel.this, WindowEvent.WINDOW_CLOSING));
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null,
-							"You need to name the model.");
-				}
-			}
-		});
+		okButton.addActionListener(arg0 -> {
+            if (!textField.getText().equals(null))
+            {
+                NewModel.this.window.newModel(
+                        (SystemEnum) comboBox.getSelectedItem(),
+                        textField.getText());
+                NewModel.this.setVisible(false);
+                NewModel.this.dispatchEvent(new WindowEvent(
+                        NewModel.this, WindowEvent.WINDOW_CLOSING));
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,
+                        "You need to name the model.");
+            }
+        });
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				NewModel.this.setVisible(false);
-				NewModel.this.dispatchEvent(new WindowEvent(
-						NewModel.this, WindowEvent.WINDOW_CLOSING));
-			}
-		});
+		cancelButton.addActionListener(e -> {
+            NewModel.this.setVisible(false);
+            NewModel.this.dispatchEvent(new WindowEvent(
+                    NewModel.this, WindowEvent.WINDOW_CLOSING));
+        });
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

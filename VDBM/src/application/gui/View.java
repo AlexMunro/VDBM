@@ -87,7 +87,7 @@ public class View extends JFrame
 
 	private JMenuItem mntmAboutErdTool;
 
-	private ArrayList<EntityBox> entities = new ArrayList<EntityBox>();
+	private ArrayList<EntityBox> entities = new ArrayList<>();
 
 	private int maxX, maxY = 0;
 	
@@ -97,7 +97,7 @@ public class View extends JFrame
 	
 	public void updateRelationships(List<Relationship> inheritances, List<Relationship> associations)
 	{
-		relationshipLines = new ArrayList<RelationshipLine>();
+		relationshipLines = new ArrayList<>();
 		for (Relationship i: inheritances)
 		{
 			relationshipLines.add(new InheritanceLine(i));
@@ -167,111 +167,43 @@ public class View extends JFrame
 		menuBar.add(mnFile);
 	
 		mntmNewModel = new JMenuItem("New model");
-		mntmNewModel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				SwingUtilities.invokeLater(new Runnable()
-				{
-					public void run()
-					{
-						new NewModel(View.this);
-					}
-				});
-			}
-		});
+		mntmNewModel.addActionListener(e -> SwingUtilities.invokeLater(() -> new NewModel(View.this)));
 		mnFile.add(mntmNewModel);
 	
 		JMenuItem mntmLoadModel = new JMenuItem("Load model");
 		mnFile.add(mntmLoadModel);
-		mntmLoadModel.addActionListener(new ActionListener()
-		{
-	
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-	
-				View.this.loadModelFromFile();
-	
-			}
-	
-		});
+		mntmLoadModel.addActionListener(arg0 -> View.this.loadModelFromFile());
 	
 		mntmGenerateSchema = new JMenuItem("Generate schema");
-		mntmGenerateSchema.addActionListener(new ActionListener()
-		{
-	
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				View.this.generateSchema();
-			}
-	
-		});
+		mntmGenerateSchema.addActionListener(arg0 -> View.this.generateSchema());
 		mntmGenerateSchema.setEnabled(false);
 	
 		mntmSaveModel = new JMenuItem("Save model");
 		mntmSaveModel.setEnabled(false);
 		mnFile.add(mntmSaveModel);
 		mnFile.add(mntmGenerateSchema);
-		mntmSaveModel.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				View.this.saveModelToFile();
-			}
-		});
+		mntmSaveModel.addActionListener(arg0 -> View.this.saveModelToFile());
 		
 		mntmCloseModel = new JMenuItem("Close model");
 		mntmCloseModel.setEnabled(false);
 		mnFile.add(mntmCloseModel);
-		mntmCloseModel.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				View.this.closeModel();
-			}
-			
-		});
+		mntmCloseModel.addActionListener(arg0 -> View.this.closeModel());
 		
 		mntmQBE = new JMenuItem("Build a query by example");
-		mntmQBE.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				QueryByExampleDialog qbeDialog = new QueryByExampleDialog(model);
-				qbeDialog.setVisible(true);
-			}
-			
-		});
+		mntmQBE.addActionListener(e -> {
+            QueryByExampleDialog qbeDialog = new QueryByExampleDialog(model);
+            qbeDialog.setVisible(true);
+        });
 		mnFile.add(mntmQBE);
 		mntmQBE.setEnabled(false);
 		
 		mntmExportImage = new JMenuItem("Export as image");
 		mntmExportImage.setEnabled(false);
-		mntmExportImage.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				exportToImage();
-			}
-		});
+		mntmExportImage.addActionListener(arg0 -> exportToImage());
 		mnFile.add(mntmExportImage);
 		
 		JMenuItem mntmQuit = new JMenuItem("Quit");
-		mntmQuit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				System.exit(0);
-			}
-		});
+		mntmQuit.addActionListener(arg0 -> System.exit(0));
 		mnFile.add(mntmQuit);
 	
 		JMenu mnEdit = new JMenu("Edit");
@@ -281,44 +213,23 @@ public class View extends JFrame
 		mntmUndo.setEnabled(false);
 		mnEdit.add(mntmUndo);
 		
-		mntmUndo.addActionListener(new ActionListener()
-		{
-	
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				controller.undo();
-			}
-			
-		});
+		mntmUndo.addActionListener(e -> controller.undo());
 	
 		mntmRedo = new JMenuItem("Redo");
 		mntmRedo.setEnabled(false);
 		mnEdit.add(mntmRedo);
 		
-		mntmRedo.addActionListener(new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent e)
-				{
-					controller.redo();
-				}			
-			}
+		mntmRedo.addActionListener(e -> controller.redo()
 		);
 	
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 	
 		mntmAboutErdTool = new JMenuItem("About VDBM");
-		mntmAboutErdTool.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				AboutPage ap = new AboutPage();
-				ap.setVisible(true);
-			}
-		});
+		mntmAboutErdTool.addActionListener(arg0 -> {
+            AboutPage ap = new AboutPage();
+            ap.setVisible(true);
+        });
 		mnHelp.add(mntmAboutErdTool);
 		
 		
@@ -419,10 +330,10 @@ public class View extends JFrame
 			e.setVisible(false);
 			e.setEnabled(false);
 		}
-		this.entities = new ArrayList<EntityBox>();
+		this.entities = new ArrayList<>();
 		contentPanel.setBackground(new Color(240,240,240));
 		contentPanel.repaint();
-		this.relationshipLines = new ArrayList<RelationshipLine>();
+		this.relationshipLines = new ArrayList<>();
 		this.setTitle(RunTool.APPLICATION_NAME);
 	}
 
@@ -478,7 +389,7 @@ public class View extends JFrame
 
 		// Reset and repopulate the entity box list
 
-		entities = new ArrayList<EntityBox>();
+		entities = new ArrayList<>();
 		this.model = model;
 		this.setTitle(RunTool.APPLICATION_NAME + " - " + model.getTs().toString() + " - "
 				+ model.getName());
@@ -525,10 +436,7 @@ public class View extends JFrame
 				model = (Model) ois.readObject();
 				ois.close();
 				fis.close();
-			} catch (IOException e)
-			{
-
-			} catch (ClassNotFoundException e)
+			} catch (IOException | ClassNotFoundException e)
 			{
 
 			}

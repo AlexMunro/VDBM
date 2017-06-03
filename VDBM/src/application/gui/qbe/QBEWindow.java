@@ -59,7 +59,7 @@ public class QBEWindow extends JFrame
 
 	private JDesktopPane desktopPane;
 	private JPanel btnPane;
-	private List<QBEBox> boxes = new ArrayList<QBEBox>();
+	private List<QBEBox> boxes = new ArrayList<>();
 	
 	private Model model;
 	
@@ -82,41 +82,23 @@ public class QBEWindow extends JFrame
 		btnPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		JButton cancelBtn = new JButton("Cancel");
-		cancelBtn.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				setVisible(false);
-				dispose();
-			}
-			
-		});
+		cancelBtn.addActionListener(arg0 -> {
+            setVisible(false);
+            dispose();
+        });
 		
 		getContentPane().add(btnPane, BorderLayout.SOUTH);
 		
 		JButton btnBuildQuery = new JButton("Build query");
-		btnBuildQuery.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				buildQuery();
-			}
-			
-		});
+		btnBuildQuery.addActionListener(e -> buildQuery());
 		btnPane.add(btnBuildQuery);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				QBEWindow.this.setEnabled(false);
-				QBEWindow.this.setVisible(false);
-				QBEWindow.this.dispose();
-			}
-		});
+		btnCancel.addActionListener(arg0 -> {
+            QBEWindow.this.setEnabled(false);
+            QBEWindow.this.setVisible(false);
+            QBEWindow.this.dispose();
+        });
 		btnPane.add(btnCancel);
 		
 		this.model = model;
