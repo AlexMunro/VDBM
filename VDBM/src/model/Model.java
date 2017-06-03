@@ -23,6 +23,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import model.diagram.Attribute;
 import model.diagram.Entity;
@@ -131,7 +132,7 @@ public class Model {
 			List<Attribute> oldAttributes = new ArrayList<>();
 			for (Attribute a : entity.getAttributes())
 			{
-				if (a.getType() == oldEntity.getName())
+				if (Objects.equals(a.getType(), oldEntity.getName()))
 					oldAttributes.add(a);
 			}
 			for (Attribute a : oldAttributes)

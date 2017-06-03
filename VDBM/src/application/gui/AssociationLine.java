@@ -108,14 +108,7 @@ public class AssociationLine extends RelationshipLine
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Line2D connection = new Line2D.Float(eb1.getMidPoint(), eb2.getMidPoint());
 		g2d.draw(connection);
-		
-		/**
-		 * OKAY RIGHT SO
-		 * 
-		 * FIND THE ANTI-LINE Y'KNOW LIKE
-		 * 
-		 */
-		
+
 	}
 	
 	@Override
